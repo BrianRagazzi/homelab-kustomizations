@@ -15,9 +15,6 @@ spec:
       labels:
         app: hugo-lablinks
     spec:
-      securityContext:
-        runAsUser: 1000
-        runAsGroup: 3000
       containers:
       - name: hugo-lablinks
         image:  harbor.lab.brianragazzi.com/library/lablinks:latest
@@ -30,8 +27,10 @@ spec:
         securityContext:
           allowPrivilegeEscalation: false
           runAsNonRoot: true
+          seccompProfile:
+            type: RuntimeDefault
+          capabilities:
+            drop:
+              - ALL
       imagePullSecrets:
       - name: harbor
-      securityContext:
-        allowPrivilegeEscalation: false
-        runAsNonRoot: true
