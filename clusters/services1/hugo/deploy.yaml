@@ -15,13 +15,16 @@ spec:
       labels:
         app: hugo-lablinks
     spec:
+      securityContext:
+        runAsNonRoot: true
+        runAsUser: 1000
       containers:
       - name: hugo-lablinks
         image:  harbor.lab.brianragazzi.com/library/lablinks:latest
         imagePullPolicy: Always
         # env:
         #   - name: HUGO_BASE_URL
-        #     value: "http://lablinks.lab.ragazzilab.com:443"
+        #     value: "https://lablinks.lab.ragazzilab.com:443"
         ports:
         - containerPort: 1313
         securityContext:
