@@ -1,0 +1,15 @@
+---
+apiVersion: networking.k8s.io/v1
+kind: NetworkPolicy
+metadata:
+  name: lablinks
+  namespace: hugo
+spec:
+  podSelector:
+    matchLabels:
+      app: hugo-lablinks
+  ingress:
+  - from: []
+    ports:
+    - protocol: TCP
+      port: 80

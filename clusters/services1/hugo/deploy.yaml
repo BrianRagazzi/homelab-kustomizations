@@ -1,0 +1,28 @@
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: hugo-lablinks
+  labels:
+    app: hugo-lablinks
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: hugo-lablinks
+  template:
+    metadata:
+      labels:
+        app: hugo-lablinks
+    spec:
+      containers:
+      - name: hugo-lablinks
+        image:  harbor.lab.brianragazzi.com/library/lablinks:latest
+        imagePullPolicy: Always
+        # env:
+        #   - name: HUGO_BASE_URL
+        #     value: "http://lablinks.lab.ragazzilab.com:443"
+        ports:
+        - containerPort: 80
+      imagePullSecrets:
+      - name: harbor

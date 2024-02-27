@@ -1,0 +1,17 @@
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: hugo-lablinks
+  annotations:
+    # external-dns.alpha.kubernetes.io/hostname: lablinks.ragazzilab.com
+  labels:
+    app: hugo-lablinks
+spec:
+  type: LoadBalancer
+  ports:
+  - port: 80
+    protocol: TCP
+    targetPort: 80
+  selector:
+    app: hugo-lablinks
