@@ -12,7 +12,9 @@ kubectl apply -n hugo -f ./deploy.yaml
 
 kubectl -n hugo create secret tls wildcard-cert \
   --cert=./full.crt \
-  --key=./brianragazzi-wildcard.key
+  --key=./brianragazzi-wildcard.key \
+  --dry-run=client --oyaml
+
 
 
 kubectl -n tekton-pipelines create secret tls wildcard-cert \
