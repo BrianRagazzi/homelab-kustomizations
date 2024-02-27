@@ -12,6 +12,6 @@ spec:
   ports:
   - port: 80
     protocol: TCP
-    targetPort: 8000
+    targetPort: 1313
   selector:
     app: hugo-lablinks

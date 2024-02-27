@@ -23,7 +23,7 @@ spec:
         #   - name: HUGO_BASE_URL
         #     value: "http://lablinks.lab.ragazzilab.com:443"
         ports:
-        - containerPort: 8000
+        - containerPort: 1313
         securityContext:
           allowPrivilegeEscalation: false
           runAsNonRoot: true
