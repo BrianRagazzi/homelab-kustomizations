@@ -8,9 +8,9 @@ metadata:
   labels:
     app: hugo-lablinks
 spec:
-  type: LoadBalancer
+  type: ClusterIP
   ports:
-  - port: 80
+  - port: 1313
     protocol: TCP
     targetPort: 1313
   selector:
