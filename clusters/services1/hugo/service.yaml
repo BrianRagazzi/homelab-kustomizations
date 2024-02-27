@@ -8,9 +8,9 @@ metadata:
   labels:
     app: hugo-lablinks
 spec:
-  type: ClusterIP
+  type: LoadBalancer #ClusterIP
   ports:
-  - port: 8080
+  - port: 80
     protocol: TCP
     targetPort: 8080
     name: hugo
