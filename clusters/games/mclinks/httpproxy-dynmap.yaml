@@ -4,6 +4,10 @@ metadata:
   name: dynmap
   namespace: mclinks
 spec:
+  virtualhost:
+    fqdn: dynmap.lab.brianragazzi.com
+    tls:
+      secretName: wildcard-cert
   # includes:
   # - name: survive1
   #   namespace: survive1
@@ -15,7 +19,3 @@ spec:
     services:
     - name: mclinks-svc
       port: 8080
-  virtualhost:
-    fqdn: dynmap.lab.brianragazzi.com
-    tls:
-      secretName: wildcard-cert
