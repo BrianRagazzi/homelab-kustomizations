@@ -1,4 +1,8 @@
 apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: xmage-env
+  namespace: xmage
 data:
   JAVA_MAX_MEMORY: 4G
   JAVA_MIN_MEMORY: 256M
@@ -23,7 +27,3 @@ data:
   XMAGE_DOCKER_SERVER_ADDRESS: xmage.games.ragazzilab.com
   XMAGE_DOCKER_SERVER_MSG: YO
   XMAGE_DOCKER_SERVER_NAME: mage-server
-kind: ConfigMap
-metadata:
-  name: xmage-env
-  namespace: xmage
