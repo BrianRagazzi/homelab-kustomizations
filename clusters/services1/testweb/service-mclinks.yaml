@@ -1,0 +1,18 @@
+---
+apiVersion: v1
+kind: Service
+metadata:
+  annotations:
+    # external-dns.alpha.kubernetes.io/hostname: mclinks.games.ragazzilab.com
+  labels:
+    run: mclinks
+  name: mclinks-svc
+spec:
+  selector:
+    run: mclinks
+  type: ClusterIP
+  ports:
+  - name: http
+    port: 8080
+    protocol: TCP
+    targetPort: 8080

@@ -1,0 +1,46 @@
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    run: mclinks
+  name: mclinks
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      run: mclinks
+  template:
+    metadata:
+      annotations:
+      labels:
+        run: mclinks
+    spec:
+      securityContext:
+        runAsNonRoot: true
+        runAsUser: 1000
+      volumes:
+      - name: homepage-config
+        configMap:
+          name: homepage-config
+      containers:
+      - image: harbor.lab.brianragazzi.com/cache/nginxinc/nginx-unprivileged:alpine3.18
+        name: webserver
+        volumeMounts:
+        - mountPath: /usr/share/nginx/html
+          name: homepage-config
+        ports:
+        - containerPort: 8080
+          name: http
+        securityContext:
+          allowPrivilegeEscalation: false
+          runAsNonRoot: true
+          seccompProfile:
+            type: RuntimeDefault
+          capabilities:
+            drop:
+              - ALL
+        resources:
+          limits:
+            memory: "512Mi"
+            cpu: "0.1"
