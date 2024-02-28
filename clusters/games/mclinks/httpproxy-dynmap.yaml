@@ -16,6 +16,6 @@ spec:
     - name: mclinks-svc
       port: 8080
   virtualhost:
-    fqdn: dynmap.games.ragazzilab.com
+    fqdn: dynmap.lab.brianragazzi.com
     tls:
       secretName: wildcard-cert
