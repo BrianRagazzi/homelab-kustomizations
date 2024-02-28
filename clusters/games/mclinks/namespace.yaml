@@ -3,4 +3,4 @@ kind: Namespace
 metadata:
   name: mclinks
   labels:
-    kubernetes.io/metadata.name: xmage
+    app.kubernetes.io/name: mclinks
