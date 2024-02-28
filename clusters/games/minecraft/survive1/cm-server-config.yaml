@@ -1,0 +1,52 @@
+---
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  labels:
+    run: survive1
+  name: server-config
+  namespace: minecraft
+data:
+  ALLOW_NETHER: "true"
+  COPY_CONFIG_DEST: /data
+  DEBUG: "true"
+  DEBUG_EXEC: "true"
+  DIFFICULTY: normal
+  ENABLE_AUTOPAUSE: "false"
+  ENABLE_COMMAND_BLOCK: "true"
+  ENABLE_ROLLING_LOGS: "true"
+  EULA: "true"
+  FORGEVERSION: RECOMMENDED
+  GENERATE_STRUCTURES: "true"
+  ICON: https://icons.iconarchive.com/icons/dakirby309/simply-styled/128/Minecraft-icon.png
+  INITIAL_DELAY: 2m
+  JVM_DD_OPTS: log4j2.formatMsgNoLookups=true
+  MAX_PLAYERS: "25"
+  MAX_TICK_TIME: "-1"
+  MAX_WORLD_SIZE: "20000"
+  MEMORY: 12G
+  MODE: survival
+  MOTD: survive1
+  ONLINE_MODE: "false"
+  OPS: nerobrian,Praetura1,IzzyPines
+  OVERRIDE_SERVER_PROPERTIES: "true"
+  PVP: "true"
+  RCON_CMDS_STARTUP: |
+    gamerule keepInventory true
+    gamerule loadAdminCommands true
+    gamerule doFireTick false
+  RCON_PASSWORD: minecraft
+  RCON_PORT: "25575"
+  SEED: "2744112089037896118"
+  SERVER_NAME: survive1
+  SPAWN_ANIMALS: "true"
+  SPAWN_MONSTERS: "true"
+  SPAWN_NPCS: "true"
+  SPAWN_PROTECTION: "1"
+  SRC_DIR: /data
+  SYNC_SKIP_NEWER_IN_DESTINATION: "true"
+  TUNE_VIRTUALIZED: "true"
+  TYPE: PAPER
+  USE_AIKAR_FLAGS: "true"
+  VERSION: 1.20.1
+  VIEW_DISTANCE: "48"

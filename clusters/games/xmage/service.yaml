@@ -1,0 +1,31 @@
+apiVersion: v1
+kind: Service
+metadata:
+  annotations:
+    external-dns.alpha.kubernetes.io/hostname: xmage.games.ragazzilab.com
+  labels:
+    run: xmage
+  name: xmage-lb
+  namespace: xmage
+spec:
+  allocateLoadBalancerNodePorts: true
+  externalTrafficPolicy: Cluster
+  internalTrafficPolicy: Cluster
+  ipFamilies:
+    - IPv4
+  ipFamilyPolicy: SingleStack
+  ports:
+    - name: primary
+      nodePort: 31528
+      port: 17171
+      protocol: TCP
+      targetPort: 17171
+    - name: secondary
+      nodePort: 30528
+      port: 17179
+      protocol: TCP
+      targetPort: 17179
+  selector:
+    run: xmage
+  sessionAffinity: None
+  type: LoadBalancer

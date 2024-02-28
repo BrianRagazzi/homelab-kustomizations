@@ -1,0 +1,72 @@
+apiVersion: apps/v1
+kind: StatefulSet
+metadata:
+  labels:
+    run: waterfall
+  name: waterfall
+  namespace: minecraft
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      run: waterfall
+  template:
+    metadata:
+      labels:
+        run: waterfall
+    spec:
+      containers:
+        - envFrom:
+            - configMapRef:
+                name: waterfall-env
+          image: itzg/bungeecord:latest
+          imagePullPolicy: Always
+          livenessProbe:
+            exec:
+              command:
+                - mc-monitor
+                - status
+            failureThreshold: 5
+            initialDelaySeconds: 120
+            periodSeconds: 60
+            successThreshold: 1
+            timeoutSeconds: 5
+          name: waterfall
+          ports:
+            - containerPort: 25565
+              hostPort: 25565
+              protocol: TCP
+          resources:
+            requests:
+              memory: "512Mi"
+            limits:
+              memory: "1Gi"
+          terminationMessagePath: /dev/termination-log
+          terminationMessagePolicy: File
+          volumeMounts:
+            - mountPath: /config/config.yml
+              name: waterfall-config
+              subPath: config.yml
+            - mountPath: /plugins
+              name: waterfall-plugins
+      dnsPolicy: ClusterFirst
+      restartPolicy: Always
+      schedulerName: default-scheduler
+      securityContext: {}
+      terminationGracePeriodSeconds: 30
+      volumes:
+        - configMap:
+            defaultMode: 420
+            items:
+              - key: config.yml
+                path: config.yml
+            name: waterfall-config-yml
+          name: waterfall-config
+        - hostPath:
+            path: /minecraft/waterfall/plugins
+            type: ""
+          name: waterfall-plugins
+  updateStrategy:
+    rollingUpdate:
+      partition: 0
+    type: RollingUpdate

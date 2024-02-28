@@ -1,0 +1,75 @@
+---
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  labels:
+    run: waterfall
+  name: waterfall-config-yml
+  namespace: minecraft
+data:
+  config.yml: |
+    forge_support: false
+    server_connect_timeout: 5000
+    connection_throttle_limit: 3
+    online_mode: true
+    log_commands: true
+    listeners:
+    - query_port: 25565
+      motd: 'penguin.epicgamer.org'
+      priorities:
+      - survive
+      bind_local_address: true
+      tab_list: GLOBAL_PING
+      query_enabled: false
+      host: 0.0.0.0:25565
+      max_players: 100
+      tab_size: 60
+      ping_passthrough: false
+      force_default_server: false
+      proxy_protocol: false
+    connection_throttle: 4000
+    groups:
+      Praetura1:
+      - admin
+      nerobrian:
+      - admin
+      IzzyPines:
+      - admin
+    log_pings: true
+    ip_forward: true
+    prevent_proxy_connections: false
+    network_compression_threshold: 256
+    stats: cbd0d5ab-8dbc-4b04-8ecc-e60351bd82fc
+    disabled_commands:
+    - op
+    - kick
+    - stop
+    - deop
+    timeout: 60000
+    permissions:
+      default:
+      - bungeecord.command.server
+      - bungeecord.command.list
+      admin:
+      - bungeecord.command.alert
+      - bungeecord.command.end
+      - bungeecord.command.ip
+      - bungeecord.command.reload
+    servers:
+      survive:
+        motd: '&d-== &6Something &cFancy &d==-'
+        address: survive1:25565
+        restricted: false
+      survive2:
+        motd: '&d-== &6Something &cLess Fancy &d==-'
+        address: survive2:25565
+        restricted: false
+    #  creative:
+    #    motd: '&1Creative1'
+    #    address: creative1:25565
+    #    restricted: false
+     # template:
+     #    motd: '&1Template'
+     #    address: template-svc:25565
+     #    restricted: false
+    player_limit: 25

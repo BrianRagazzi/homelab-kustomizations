@@ -1,0 +1,22 @@
+---
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  labels:
+    run: survive2
+  name: backup-config-survive2
+  namespace: minecraft
+data:
+  BACKUP_INTERVAL: 12h
+  EXCLUDES: cache,logs,*.tmp,lost+found
+  PAUSE_IF_NO_PLAYERS: "true"
+  PLAYERS_ONLINE_CHECK_INTERVAL: 5m
+  POST_BACKUP_SCRIPT: |
+    echo "Backup from $RCON_HOST to $DEST_DIR finished"
+  PRE_BACKUP_SCRIPT: |
+    echo "Before backup!"
+    echo "Also before backup from $RCON_HOST to $DEST_DIR"
+  PRUNE_BACKUPS_DAYS: "2"
+  RCON_HOST: localhost
+  RCON_PASSWORD: minecraft
+  BACKUP_NAME: "survive2"

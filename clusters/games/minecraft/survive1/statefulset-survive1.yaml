@@ -1,0 +1,101 @@
+---
+apiVersion: apps/v1
+kind: StatefulSet
+metadata:
+  generation: 10
+  labels:
+    run: survive1
+  name: survive1
+  namespace: minecraft
+spec:
+  persistentVolumeClaimRetentionPolicy:
+    whenDeleted: Retain
+    whenScaled: Retain
+  podManagementPolicy: OrderedReady
+  replicas: 1
+  revisionHistoryLimit: 10
+  selector:
+    matchLabels:
+      run: survive1
+  template:
+    metadata:
+      labels:
+        run: survive1
+    spec:
+      containers:
+        - envFrom:
+            - configMapRef:
+                name: server-config
+          image: itzg/minecraft-server
+          imagePullPolicy: Always
+          livenessProbe:
+            exec:
+              command:
+                - mc-health
+            failureThreshold: 5
+            initialDelaySeconds: 90
+            periodSeconds: 120
+            successThreshold: 1
+            timeoutSeconds: 5
+          name: server
+          ports:
+            - containerPort: 25565
+              protocol: TCP
+            - containerPort: 8123
+              protocol: TCP
+            - containerPort: 25575
+              protocol: TCP
+          resources:
+            requests:
+              memory: "13Gi"
+              cpu: "500m"
+            limits:
+              memory: "13Gi"
+              cpu: "3"
+          stdin: true
+          terminationMessagePath: /dev/termination-log
+          terminationMessagePolicy: File
+          tty: true
+          volumeMounts:
+            - mountPath: /data
+              name: survive1-data
+        - envFrom:
+            - configMapRef:
+                name: backup-config-survive1
+          image: itzg/mc-backup
+          imagePullPolicy: Always
+          name: backup
+          resources: {}
+          terminationMessagePath: /dev/termination-log
+          terminationMessagePolicy: File
+          volumeMounts:
+            - mountPath: /data
+              name: survive1-data
+              readOnly: true
+            - mountPath: /backups
+              name: mc-backups
+      dnsPolicy: ClusterFirst
+      restartPolicy: Always
+      schedulerName: default-scheduler
+      securityContext:
+        fsGroup: 1001
+        runAsGroup: 1001
+        runAsUser: 1001
+      terminationGracePeriodSeconds: 30
+      volumes:
+        - hostPath:
+            path: /minecraft/survive1-data
+            type: ""
+          name: survive1-data
+        - name: mc-backups
+          nfs:
+            server: mycloud.ragazzilab.com
+            path: /kubevol/mc-backups
+        # - hostPath:
+        #     path: /minecraft/mc-backups
+        #     type: ""
+          name: mc-backups
+  updateStrategy:
+    rollingUpdate:
+      partition: 0
+    type: RollingUpdate

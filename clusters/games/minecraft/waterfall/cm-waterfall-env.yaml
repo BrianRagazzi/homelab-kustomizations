@@ -1,0 +1,17 @@
+---
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  labels:
+    run: waterfall
+  name: waterfall-env
+  namespace: minecraft
+data:
+  INIT_MEMORY: 512m
+  JAVA_OPTS: -XX:+UseG1GC -XX:G1HeapRegionSize=4M -XX:+UnlockExperimentalVMOptions -XX:+ParallelRefProcEnabled -XX:+AlwaysPreTouch
+  MAX_MEMORY: 512m
+  MEMORY: 512m
+  RESTART_ON_CRASH: "true"
+  TYPE: WATERFALL
+  WATERFALL_BUILD_ID: latest
+  WATERFALL_VERSION: latest

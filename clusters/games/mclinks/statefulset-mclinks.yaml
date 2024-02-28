@@ -1,0 +1,36 @@
+---
+apiVersion: apps/v1
+kind: StatefulSet
+metadata:
+  labels:
+    run: mclinks
+  name: mclinks
+  namespace: minecraft
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      run: mclinks
+  template:
+    metadata:
+      annotations:
+      labels:
+        run: mclinks
+    spec:
+      volumes:
+      - name: homepage-config
+        configMap:
+          name: homepage-config
+      containers:
+      - image: nginx
+        name: webserver
+        volumeMounts:
+        - mountPath: /usr/share/nginx/html
+          name: homepage-config
+        ports:
+        - containerPort: 80
+          name: http
+        resources:
+          limits:
+            memory: "512Mi"
+            cpu: "0.1"
