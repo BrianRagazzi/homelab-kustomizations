@@ -2,7 +2,7 @@ apiVersion: v1
 kind: Namespace
 metadata:
   labels:
-    kubernetes.io/metadata.name: xmage
+    app.kubernetes.io/name: xmage
     pod-security.kubernetes.io/enforce: privileged
   name: xmage
 spec:
