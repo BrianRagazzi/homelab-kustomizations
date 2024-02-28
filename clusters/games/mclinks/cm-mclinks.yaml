@@ -5,7 +5,7 @@ metadata:
   labels:
     run: mclinks
   name: homepage-config
-  namespace: minecraft
+  namespace: mclinks
 data:
   index.html: |
     <html><head><title>Minecraft Links</title><head>

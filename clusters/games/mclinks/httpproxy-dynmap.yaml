@@ -1,0 +1,21 @@
+apiVersion: projectcontour.io/v1
+kind: HTTPProxy
+metadata:
+  name: dynmap
+  namespace: mclinks
+spec:
+  # includes:
+  # - name: survive1
+  #   namespace: survive1
+  # - name: creative1
+  #   namespace: creative1
+  routes:
+  - conditions:
+    - prefix: /
+    services:
+    - name: mclinks-svc
+      port: 8080
+  virtualhost:
+    fqdn: dynmap.games.ragazzilab.com
+    tls:
+      secretName: wildcard-cert
