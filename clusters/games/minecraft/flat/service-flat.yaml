@@ -5,7 +5,7 @@ metadata:
   labels:
     run: flat
   name: flat
-  namespace: minecraft
+  namespace: mc-flat
 spec:
   ports:
     - name: minecraft
@@ -22,4 +22,4 @@ spec:
       targetPort: 8123
   selector:
     run: flat
-  type: ClusterIP
+  type: LoadBalancer

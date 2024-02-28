@@ -5,10 +5,9 @@ metadata:
   labels:
     run: flat
   name: flat-server-config
-  namespace: minecraft
 data:
   ALLOW_NETHER: "false"
-  COPY_CONFIG_DEST: /data
+  COPY_CONFIG_DEST: /data #copy configfiles directly into /data, instead of /data/config
   DEBUG: "true"
   DEBUG_EXEC: "true"
   DIFFICULTY: peaceful

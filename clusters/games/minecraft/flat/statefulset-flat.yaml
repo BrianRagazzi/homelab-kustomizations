@@ -2,18 +2,11 @@
 apiVersion: apps/v1
 kind: StatefulSet
 metadata:
-  generation: 10
   labels:
     run: flat
   name: flat
-  namespace: minecraft
 spec:
-  persistentVolumeClaimRetentionPolicy:
-    whenDeleted: Retain
-    whenScaled: Retain
-  podManagementPolicy: OrderedReady
   replicas: 1
-  revisionHistoryLimit: 10
   selector:
     matchLabels:
       run: flat
@@ -61,7 +54,7 @@ spec:
               name: server-data
         - envFrom:
             - configMapRef:
-                name: backup-config
+                name: backup-config-flat
           image: itzg/mc-backup
           imagePullPolicy: Always
           name: backup
@@ -83,18 +76,21 @@ spec:
         runAsUser: 1001
       terminationGracePeriodSeconds: 30
       volumes:
-        - hostPath:
+        - name: server-data
+          hostPath:
             path: /minecraft/flat-data
             type: ""
-          name: server-data
         - name: mc-backups
           nfs:
-            server: 192.168.96.20
-            path: /nfs/datastore/mc-backups
-        # - hostPath:
-        #     path: /minecraft/mc-backups/flat
-        #     type: ""
-        #   name: mc-backups
+            server: 192.168.1.41
+            path: /nfs/kubevol/mc-backups
+        - name: configfiles
+          configmap:
+             name: flat-configfiles
+        - name: plugins
+          nfs:
+            path: /nfs/kubevols/mc-plugins/flat
+            server: 192.168.1.41
   updateStrategy:
     rollingUpdate:
       partition: 0

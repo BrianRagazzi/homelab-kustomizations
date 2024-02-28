@@ -2,10 +2,10 @@ apiVersion: v1
 kind: Namespace
 metadata:
   labels:
-    kubernetes.io/metadata.name: minecraft
+    kubernetes.io/metadata.name: mc-flat
     pod-security.kubernetes.io/enforce: privileged
-    app.kubernetes.io/name: minecraft
-  name: minecraft
+    app.kubernetes.io/name: mc-flat
+  name: mc-flat
 spec:
   finalizers:
     - kubernetes
