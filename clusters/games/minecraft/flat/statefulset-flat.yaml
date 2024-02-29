@@ -32,6 +32,7 @@ spec:
               readOnly: false
             - mountPath: /backups
               name: mc-backups
+              readOnly: true
       containers:
         - name: server
           envFrom:
