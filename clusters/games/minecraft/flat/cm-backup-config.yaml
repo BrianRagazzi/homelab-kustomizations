@@ -12,7 +12,7 @@ data:
   PAUSE_IF_NO_PLAYERS: "true"
   PLAYERS_ONLINE_CHECK_INTERVAL: 5m
   POST_BACKUP_SCRIPT: |
-    echo "Backup from $RCON_HOST to $DEST_DIR finished"
+    echo "Backup from $RCON_HOST to $DEST_DIR finished" > $SRC_DIR/backupCompleted
   PRE_BACKUP_SCRIPT: |
     echo "Before backup!"
     echo "Also before backup from $RCON_HOST to $DEST_DIR"
