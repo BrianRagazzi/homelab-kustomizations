@@ -16,6 +16,29 @@ spec:
       labels:
         run: flat
     spec:
+      initContainers:
+        - name: restore
+          envFrom:
+            - configMapRef:
+                name: backup-config-flat
+          image: harbor.lab.brianragazzi.com/cache/itzg/mc-backup
+          imagePullPolicy: Always
+          resources: {}
+          command:
+          - restore-tar-backup
+          volumeMounts:
+            - mountPath: /data
+              name: server-data
+              readOnly: false
+            - mountPath: /backups
+              name: mc-backups
+      dnsPolicy: ClusterFirst
+      restartPolicy: Always
+      schedulerName: default-scheduler
+      securityContext:
+        fsGroup: 501
+        runAsGroup: 501
+        runAsUser: 501
       containers:
         - name: server
           envFrom:
@@ -89,7 +112,7 @@ spec:
         - name: mc-backups
           nfs:
             server: 192.168.1.41
-            path: /nfs/kubevol/mc-backups
+            path: /nfs/kubevol/mc-backups/flat
             readOnly: false
         - name: configfiles
           configMap:
