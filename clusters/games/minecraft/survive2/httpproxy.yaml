@@ -1,0 +1,18 @@
+apiVersion: projectcontour.io/v1
+kind: HTTPProxy
+metadata:
+  labels:
+    run: survive2
+  name: survive2
+  namespace: mc-survive2
+spec:
+  routes:
+  - conditions:
+    - prefix: /survive2
+    pathRewritePolicy:
+      replacePrefix:
+      - prefix: /survive2
+        replacement: /
+    services:
+    - name: survive2
+      port: 8123

@@ -1,0 +1,143 @@
+---
+apiVersion: apps/v1
+kind: StatefulSet
+metadata:
+  labels:
+    run: survive2
+  name: survive2
+  namespace: mc-survive2
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      run: survive2
+  template:
+    metadata:
+      labels:
+        run: survive2
+    spec:
+      initContainers:
+        - name: restore
+          envFrom:
+            - configMapRef:
+                name: backup-config-survive2
+          image: harbor.lab.brianragazzi.com/cache/itzg/mc-backup
+          imagePullPolicy: Always
+          resources: {}
+          command:
+          - /bin/bash
+          - -euc
+          - |
+            #!/bin/bash
+            set -euo pipefail
+            : "${SRC_DIR:=/data}"
+            : "${DEST_DIR:=/backups}"
+            : "${DEBUG:=false}"
+            if [[ ${DEBUG,,} = true ]]; then
+              set -x
+            fi
+            # shellcheck disable=SC2012
+            if (( $(ls "$SRC_DIR/server.properties" | wc -l) == 0 )); then
+              if (( $(ls "$DEST_DIR" | wc -l) > 0 )); then
+                src=$(ls -t "$DEST_DIR" | head -1)
+                echo "Restoring from $src"
+                tar -x -m --no-overwrite-dir -f $src -C "$SRC_DIR"
+              else
+                echo "No backups available to restore"
+              fi
+            else
+              echo "No restore needed.  server.properties exists"
+            fi
+          volumeMounts:
+            - mountPath: /data
+              name: server-data
+            - mountPath: /backups
+              name: mc-backups
+              readOnly: true
+      containers:
+        - name: server
+          envFrom:
+            - configMapRef:
+                name: survive2-server-config
+          image: harbor.lab.brianragazzi.com/cache/itzg/minecraft-server:latest
+          imagePullPolicy: Always
+          livenessProbe:
+            exec:
+              command:
+                - mc-health
+            failureThreshold: 5
+            initialDelaySeconds: 90
+            periodSeconds: 120
+            successThreshold: 1
+            timeoutSeconds: 5
+          ports:
+            - containerPort: 25565
+              protocol: TCP
+            - containerPort: 8123
+              protocol: TCP
+            - containerPort: 25575
+              protocol: TCP
+          resources:
+            requests:
+              memory: "13Gi"
+              cpu: "500m"
+            limits:
+              memory: "13Gi"
+              cpu: "2"
+          stdin: true
+          terminationMessagePath: /dev/termination-log
+          terminationMessagePolicy: File
+          tty: true
+          volumeMounts:
+            - name: server-data
+              mountPath: /data
+            - name: plugins
+              mountPath: /plugins
+              subPath: survive2/
+              readOnly: true
+            - name: configfiles
+              mountPath: /config
+        - name: backup
+          envFrom:
+            - configMapRef:
+                name: backup-config-survive2
+          image: harbor.lab.brianragazzi.com/cache/itzg/mc-backup
+          imagePullPolicy: Always
+          resources: {}
+          terminationMessagePath: /dev/termination-log
+          terminationMessagePolicy: File
+          volumeMounts:
+            - mountPath: /data
+              name: server-data
+              readOnly: true
+            - mountPath: /backups
+              name: mc-backups
+      dnsPolicy: ClusterFirst
+      restartPolicy: Always
+      schedulerName: default-scheduler
+      securityContext:
+        fsGroup: 501
+        runAsGroup: 501
+        runAsUser: 501
+      terminationGracePeriodSeconds: 30
+      volumes:
+        - name: server-data
+          persistentVolumeClaim:
+            claimName: pvc-survive2-data
+        - name: mc-backups
+          nfs:
+            server: 192.168.1.41
+            path: /nfs/kubevol/mc-backups/survive2 # this is set to the folder containing this server's backups
+            readOnly: false
+        - name: configfiles
+          configMap:
+             name: survive2-configfiles
+        - name: plugins
+          nfs:
+            path: /nfs/kubevol/mc-plugins
+            server: 192.168.1.41
+            readOnly: true
+  updateStrategy:
+    rollingUpdate:
+      partition: 0
+    type: RollingUpdate

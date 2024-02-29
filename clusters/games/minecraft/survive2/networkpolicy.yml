@@ -1,0 +1,19 @@
+---
+apiVersion: networking.k8s.io/v1
+kind: NetworkPolicy
+metadata:
+  name: survive2
+  namespace: mc-survive2
+spec:
+  podSelector:
+    matchLabels:
+      app: survive2
+  ingress:
+  - from: []
+    ports:
+    - protocol: TCP
+      port: 25565
+    - protocol: TCP
+      port: 8123
+    - protocol: TCP
+      port: 9940
