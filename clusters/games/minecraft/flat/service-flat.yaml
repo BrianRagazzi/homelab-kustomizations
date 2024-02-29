@@ -17,7 +17,7 @@ spec:
       protocol: TCP
       targetPort: 9940
     - name: dynmap
-      port: 80
+      port: 8123
       protocol: TCP
       targetPort: 8123
   selector:
