@@ -1,0 +1,23 @@
+---
+apiVersion: batch/v1
+kind: CronJob
+metadata:
+  name: stop-survive1
+  namespace: mc-survive1
+spec:
+  schedule: "30 3 * * *"
+  jobTemplate:
+    spec:
+      parallelism: 1
+      activeDeadlineSeconds: 30
+      template:
+        spec:
+          serviceAccountName: default
+          containers:
+          - name: stop
+            image: harbor.lab.brianragazzi.com/cache/bitnami/kubectl:latest
+            command:
+            - /bin/sh
+            - -c
+            - kubectl exec -n mc-survive1 survive1-0 -c server -- rcon-cli "stop"
+          restartPolicy: Never #OnFailure
