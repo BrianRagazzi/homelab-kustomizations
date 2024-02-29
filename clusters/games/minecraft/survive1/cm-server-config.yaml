@@ -4,8 +4,8 @@ kind: ConfigMap
 metadata:
   labels:
     run: survive1
-  name: server-config
-  namespace: minecraft
+  name: survive1-server-config
+  namespace: mc-survive1
 data:
   ALLOW_NETHER: "true"
   COPY_CONFIG_DEST: /data
@@ -37,7 +37,7 @@ data:
     gamerule doFireTick false
   RCON_PASSWORD: minecraft
   RCON_PORT: "25575"
-  SEED: "2744112089037896118"
+  # SEED: "2744112089037896118"
   SERVER_NAME: survive1
   SPAWN_ANIMALS: "true"
   SPAWN_MONSTERS: "true"
