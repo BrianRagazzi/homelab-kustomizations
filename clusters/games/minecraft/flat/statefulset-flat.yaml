@@ -21,7 +21,7 @@ spec:
           envFrom:
             - configMapRef:
                 name: flat-server-config
-          image: harbor.lab.brianragazzi.com/cache/itzg/minecraft-server
+          image: harbor.lab.brianragazzi.com/cache/itzg/minecraft-server:latest
           imagePullPolicy: Always
           livenessProbe:
             exec:
