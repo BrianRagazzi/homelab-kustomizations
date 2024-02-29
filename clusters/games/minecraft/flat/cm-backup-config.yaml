@@ -5,6 +5,7 @@ metadata:
   labels:
     run: flat
   name: backup-config-flat
+  namespace: mc-flat
 data:
   BACKUP_INTERVAL: 12h
   EXCLUDES: cache,logs,*.tmp,lost+found

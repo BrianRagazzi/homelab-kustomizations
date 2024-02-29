@@ -1,0 +1,14 @@
+---
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: pvc-flat-data
+  namespace: mc-flat
+spec:
+  storageClassName: tanzu
+  volumeMode: Filesystem
+  accessModes:
+  - ReadWriteOnce
+  resources:
+    requests:
+      storage: 20Gi

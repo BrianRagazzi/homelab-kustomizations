@@ -5,9 +5,10 @@ metadata:
   labels:
     run: flat
   name: flat-server-config
+  namespace: mc-flat
 data:
   ALLOW_NETHER: "false"
-  COPY_CONFIG_DEST: /data #copy configfiles directly into /data, instead of /data/config
+  COPY_CONFIG_DEST: /data/config #copy configfiles directly into /data, instead of /data/config
   DEBUG: "true"
   DEBUG_EXEC: "true"
   DIFFICULTY: peaceful

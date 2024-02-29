@@ -5,6 +5,7 @@ metadata:
   labels:
     run: flat
   name: flat
+  namespace: mc-flat
 spec:
   replicas: 1
   selector:
@@ -16,10 +17,11 @@ spec:
         run: flat
     spec:
       containers:
-        - envFrom:
+        - name: server
+          envFrom:
             - configMapRef:
                 name: flat-server-config
-          image: itzg/minecraft-server
+          image: harbor.lab.brianragazzi.com/cache/itzg/minecraft-server
           imagePullPolicy: Always
           livenessProbe:
             exec:
@@ -30,7 +32,6 @@ spec:
             periodSeconds: 120
             successThreshold: 1
             timeoutSeconds: 5
-          name: server
           ports:
             - containerPort: 25565
               protocol: TCP
@@ -50,14 +51,20 @@ spec:
           terminationMessagePolicy: File
           tty: true
           volumeMounts:
-            - mountPath: /data
-              name: server-data
-        - envFrom:
+            - name: server-data
+              mountPath: /data
+            - name: plugins
+              mountPath: /plugins
+              subPath: flat/
+              readOnly: true
+            - name: configfiles
+              mountPath: /config
+        - name: backup
+          envFrom:
             - configMapRef:
                 name: backup-config-flat
-          image: itzg/mc-backup
+          image: harbor.lab.brianragazzi.com/cache/itzg/mc-backup
           imagePullPolicy: Always
-          name: backup
           resources: {}
           terminationMessagePath: /dev/termination-log
           terminationMessagePolicy: File
@@ -71,26 +78,27 @@ spec:
       restartPolicy: Always
       schedulerName: default-scheduler
       securityContext:
-        fsGroup: 1001
-        runAsGroup: 1001
-        runAsUser: 1001
+        fsGroup: 501
+        runAsGroup: 501
+        runAsUser: 501
       terminationGracePeriodSeconds: 30
       volumes:
         - name: server-data
-          hostPath:
-            path: /minecraft/flat-data
-            type: ""
+          persistentVolumeClaim:
+            claimName: pvc-flat-data
         - name: mc-backups
           nfs:
             server: 192.168.1.41
             path: /nfs/kubevol/mc-backups
+            readOnly: false
         - name: configfiles
-          configmap:
+          configMap:
              name: flat-configfiles
         - name: plugins
           nfs:
-            path: /nfs/kubevols/mc-plugins/flat
+            path: /nfs/kubevol/mc-plugins
             server: 192.168.1.41
+            readOnly: true
   updateStrategy:
     rollingUpdate:
       partition: 0
