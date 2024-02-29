@@ -9,6 +9,9 @@ spec:
     tls:
       secretName: wildcard-cert
       minimumProtocolVersion: "1.2"
+  includes:
+  - name: flat
+    namespace: mc-flat
   routes:
     - conditions:
       - prefix: /
