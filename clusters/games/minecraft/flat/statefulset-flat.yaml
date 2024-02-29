@@ -25,11 +25,32 @@ spec:
           imagePullPolicy: Always
           resources: {}
           command:
-          - restore-tar-backup
+          - /bin/bash
+          - -euc
+          - |
+            #!/bin/bash
+            set -euo pipefail
+            : "${SRC_DIR:=/data}"
+            : "${DEST_DIR:=/backups}"
+            : "${DEBUG:=false}"
+            if [[ ${DEBUG,,} = true ]]; then
+              set -x
+            fi
+            # shellcheck disable=SC2012
+            if (( $(ls "$SRC_DIR/server.properties" | wc -l) == 0 )); then
+              if (( $(ls "$DEST_DIR" | wc -l) > 0 )); then
+                src=$(ls -t "$DEST_DIR" | head -1)
+                echo "Restoring from $src"
+                tar -x -m --no-overwrite-dir -f $src -C "$SRC_DIR"
+              else
+                echo "No backups available to restore"
+              fi
+            else
+              echo "No restore needed.  server.properties exists"
+            fi
           volumeMounts:
             - mountPath: /data
               name: server-data
-              readOnly: false
             - mountPath: /backups
               name: mc-backups
               readOnly: true
@@ -106,7 +127,7 @@ spec:
         - name: mc-backups
           nfs:
             server: 192.168.1.41
-            path: /nfs/kubevol/mc-backups/flat
+            path: /nfs/kubevol/mc-backups/flat # this is set to the folder containing this server's backups
             readOnly: false
         - name: configfiles
           configMap:
