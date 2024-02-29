@@ -14,6 +14,8 @@ spec:
     namespace: mc-flat
   - name: survive1
     namespace: mc-survive1
+  - name: survive2
+    namespace: mc-survive2
   routes:
     - conditions:
       - prefix: /

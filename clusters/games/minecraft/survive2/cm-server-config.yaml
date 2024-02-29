@@ -5,7 +5,7 @@ metadata:
   labels:
     run: survive2
   name: survive2-server-config
-  namespace: survive2
+  namespace: mc-survive2
 data:
   ALLOW_NETHER: "true"
   COPY_CONFIG_DEST: /data

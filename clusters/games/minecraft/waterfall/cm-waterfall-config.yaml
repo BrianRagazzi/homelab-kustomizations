@@ -65,10 +65,10 @@ data:
         motd: '&d-== &6Something &cFancy &d==-'
         address: survive1.mc-survive1.svc.cluster.local:25565
         restricted: false
-      # survive2:
-      #   motd: '&d-== &6Something &cLess Fancy &d==-'
-      #   address: survive2:25565
-      #   restricted: false
+      survive2:
+        motd: '&d-== &6Something &cLess Fancy &d==-'
+        address: survive2.mc-survive2.svc.cluster.local:25565
+        restricted: false
     #  creative:
     #    motd: '&1Creative1'
     #    address: creative1:25565

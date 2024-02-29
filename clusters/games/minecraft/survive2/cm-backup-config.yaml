@@ -5,7 +5,7 @@ metadata:
   labels:
     run: survive2
   name: backup-config-survive2
-  namespace: survive2
+  namespace: mc-survive2
 data:
   BACKUP_INTERVAL: 12h
   EXCLUDES: cache,logs,*.tmp,lost+found
