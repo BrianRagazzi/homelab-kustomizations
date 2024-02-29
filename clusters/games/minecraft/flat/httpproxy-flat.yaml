@@ -8,11 +8,11 @@ metadata:
 spec:
   routes:
   - conditions:
-    - prefix: /flat/
+    - prefix: /flat
     pathRewritePolicy:
       replacePrefix:
-      - prefix: /flat/
+      - prefix: /flat
         replacement: /
     services:
-    - name: flat.mc-flat.svc.cluster.local
+    - name: flat
       port: 8123
