@@ -1,0 +1,15 @@
+---
+apiVersion: networking.k8s.io/v1
+kind: NetworkPolicy
+metadata:
+  name: flat
+  namespace: mc-flat
+spec:
+  podSelector:
+    matchLabels:
+      app: flat
+  ingress:
+  - from: []
+    ports:
+    - protocol: TCP
+      port: 25565
