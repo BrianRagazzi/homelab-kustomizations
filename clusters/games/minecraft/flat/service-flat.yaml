@@ -22,4 +22,4 @@ spec:
       targetPort: 8123
   selector:
     run: flat
-  type: LoadBalancer
+  type: ClusterIP
