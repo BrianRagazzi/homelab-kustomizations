@@ -20,3 +20,4 @@ data:
   RCON_HOST: localhost
   RCON_PASSWORD: minecraft
   BACKUP_NAME: "flat"
+  DEBUG: true
