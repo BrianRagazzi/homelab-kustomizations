@@ -1,0 +1,18 @@
+apiVersion: projectcontour.io/v1
+kind: HTTPProxy
+metadata:
+  labels:
+    run: flat
+  name: flat
+  namespace: mc-flat
+spec:
+  routes:
+  - conditions:
+    - prefix: /flat/
+    pathRewritePolicy:
+      replacePrefix:
+      - prefix: /flat/
+        replacement: /
+    services:
+    - name: flat.mc-flat.svc.cluster.local
+      port: 8123
