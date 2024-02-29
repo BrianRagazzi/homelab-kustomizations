@@ -4,7 +4,7 @@ metadata:
   labels:
     run: waterfall
   name: waterfall
-  namespace: minecraft
+  namespace: waterfall
 spec:
   replicas: 1
   selector:
@@ -19,7 +19,7 @@ spec:
         - envFrom:
             - configMapRef:
                 name: waterfall-env
-          image: itzg/bungeecord:latest
+          image: harbor.lab.brianragazzi.com/cache/itzg/bungeecord:latest
           imagePullPolicy: Always
           livenessProbe:
             exec:
@@ -34,7 +34,8 @@ spec:
           name: waterfall
           ports:
             - containerPort: 25565
-              hostPort: 25565
+              protocol: TCP
+            - containerPort: 9985
               protocol: TCP
           resources:
             requests:
@@ -48,24 +49,27 @@ spec:
               name: waterfall-config
               subPath: config.yml
             - mountPath: /plugins
-              name: waterfall-plugins
+              name: plugins
+              subPath: waterfall/
+              readOnly: true
       dnsPolicy: ClusterFirst
       restartPolicy: Always
       schedulerName: default-scheduler
       securityContext: {}
       terminationGracePeriodSeconds: 30
       volumes:
-        - configMap:
+        - name: waterfall-config
+          configMap:
             defaultMode: 420
             items:
               - key: config.yml
                 path: config.yml
             name: waterfall-config-yml
-          name: waterfall-config
-        - hostPath:
-            path: /minecraft/waterfall/plugins
-            type: ""
-          name: waterfall-plugins
+        - name: plugins
+          nfs:
+            path: /nfs/kubevol/mc-plugins
+            server: 192.168.1.41
+            readOnly: true
   updateStrategy:
     rollingUpdate:
       partition: 0
