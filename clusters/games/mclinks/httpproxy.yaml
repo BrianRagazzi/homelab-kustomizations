@@ -12,6 +12,8 @@ spec:
   includes:
   - name: flat
     namespace: mc-flat
+  - name: survive1
+    namespace: mc-survive1
   routes:
     - conditions:
       - prefix: /
