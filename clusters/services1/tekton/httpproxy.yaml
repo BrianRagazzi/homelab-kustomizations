@@ -1,0 +1,36 @@
+---
+apiVersion: projectcontour.io/v1
+kind: HTTPProxy
+metadata:
+  name: tektondashboard
+  namespace: tekton-pipelines
+spec:
+  virtualhost:
+    fqdn: tekton.lab.brianragazzi.com
+    tls:
+      secretName: wildcard-cert
+      minimumProtocolVersion: "1.2"
+  routes:
+    - conditions:
+      - prefix: /
+      services:
+        - name: tekton-dashboard #.hugo.svc.cluster.local
+          port: 9097
+    # - conditions:
+    #   - prefix: /paper
+    #   pathRewritePolicy:
+    #     replacePrefix:
+    #     - prefix: /paper
+    #       replacement: /
+    #   services:
+    #     - name: paper-svc
+    #       port: 80
+    # - conditions:
+    #   - prefix: /creative1
+    #   services:
+    #     - name: creative1-svc
+    #       port: 80
+    #   pathRewritePolicy:
+    #     replacePrefix:
+    #     - prefix: /creative1
+    #       replacement: /

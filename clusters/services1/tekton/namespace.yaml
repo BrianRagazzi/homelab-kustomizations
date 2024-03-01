@@ -1,0 +1,11 @@
+apiVersion: v1
+kind: Namespace
+metadata:
+  labels:
+    kubernetes.io/metadata.name: pipelines
+    pod-security.kubernetes.io/enforce: privileged
+    app.kubernetes.io/name: pipelines
+  name: pipelines
+spec:
+  finalizers:
+    - kubernetes
