@@ -1,0 +1,35 @@
+---
+kind: Role
+apiVersion: rbac.authorization.k8s.io/v1
+metadata:
+  namespace: mc-survive2
+  name: jobrunner
+rules:
+- apiGroups: [""]
+  resources:
+  - deployments
+  - statefulsets
+  - secrets
+  - configmaps
+  - pods
+  verbs:
+  - 'patch'
+  - 'exec'
+  - 'get'
+  - 'list'
+  - 'watch'
+
+---
+kind: RoleBinding
+apiVersion: rbac.authorization.k8s.io/v1
+metadata:
+  name: jobrunner
+  namespace: mc-survive2
+subjects:
+- kind: ServiceAccount
+  name: default
+  namespace: minecraft
+roleRef:
+  kind: Role
+  name: jobrunner
+  apiGroup: ""
