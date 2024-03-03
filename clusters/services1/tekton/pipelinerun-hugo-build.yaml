@@ -1,0 +1,37 @@
+apiVersion: tekton.dev/v1beta1
+kind: PipelineRun
+metadata:
+  generateName: hugo-build-
+spec:
+  pipelineRef:
+    name: image-build-pipeline
+    namespace: pipelines
+  params:
+    - name: gitUrl
+      value: https://github.com/BrianRagazzi/homelab
+    - name: gitRevision
+      value: master
+    - name: pathToContext
+      value: images/hugo
+    - name: imageUrl
+      value: harbor.lab.brianragazzi.com/library/hugo #ragazzilab/docker-xmagebeta-alpine
+    - name: imageTag
+      value: "latest"
+    - name: kanikoExtraArgs
+      value:
+        - "--verbosity=debug"
+        - "--build-arg=HUGO_VERSION=0.113.0"
+        - "--destination=harbor.lab.brianragazzi.com/library/hugo:0.113.0"
+  serviceAccountName: pipeline
+  workspaces:
+    - name: shared-data
+      volumeClaimTemplate:
+        spec:
+          accessModes:
+          - ReadWriteOnce
+          resources:
+            requests:
+              storage: 1Gi
+    - name: docker-credentials
+      secret:
+        secretName: harbor

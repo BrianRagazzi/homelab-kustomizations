@@ -1,0 +1,23 @@
+apiVersion: tekton.dev/v1beta1
+kind: Task
+metadata:
+  name: get-dateversion
+  namespace: tekton-pipelines
+  annotations:
+    description: A simple task that prints the date
+spec:
+  params:
+    - name: format
+      description: format to apply to bash date
+      default: "%Y%b%d-%H%M%S"
+  results:
+    - name: datestring
+  steps:
+    - name: reportdatetime
+      image: bash:latest
+      script: |
+        #!/usr/bin/env bash
+        # date +'$(params.format)'|tee $(results.datestring.path)
+        VER=$(date +$(params.format))
+        echo ${VER}
+        echo -n ${VER} > $(results.datestring.path)

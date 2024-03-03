@@ -1,0 +1,19 @@
+apiVersion: tekton.dev/v1beta1
+kind: Task
+metadata:
+  name: task-xmageversion
+  namespace: tekton-pipelines
+spec:
+  steps:
+  - name: get-xmage-version
+    image: alpine:3
+    script: |
+      apk --no-cache add curl jq
+      VER=$(curl http://xmage.today/config.json | jq '.XMage.version' | sed "s/\"//g ;s/\ /\-/g; s/(//g; s/)//g" )
+      echo -n ${VER} > "${VER_FILE}"
+    env:
+    - name: VER_FILE
+      value: $(results.xmage_version.path)
+  results:
+  - name: xmage_version
+    description: current version of xmage beta

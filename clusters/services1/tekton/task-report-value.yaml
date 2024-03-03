@@ -1,0 +1,15 @@
+apiVersion: tekton.dev/v1beta1
+kind: Task
+metadata:
+  name: task-reportvalue
+  namespace: tekton-pipelines
+spec:
+  params:
+  - name: XMAGE_VERSION
+  steps:
+  - name: report
+    image: alpine:3
+    # This example uses variable substitution in the script, which I dislike,
+    # but it makes it much more compact.
+    script: |
+      echo -n "$(params.XMAGE_VERSION)"

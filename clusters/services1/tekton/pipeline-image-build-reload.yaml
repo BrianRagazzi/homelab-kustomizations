@@ -1,0 +1,76 @@
+apiVersion: tekton.dev/v1beta1
+kind: Pipeline
+metadata:
+  name: image-build-pipeline-reload
+  namespace: pipelines
+spec:
+  workspaces:
+    - name: shared-data
+    - name: docker-credentials
+      description: docker config
+    - name: kubeconfig-dir
+      description: contains kubeconfig to use with kubectl commands
+  params:
+    - name: gitUrl
+      description: Git repository url
+    - name: gitRevision
+      description: Git revision to check out
+      default: main
+    - name: pathToContext
+      description: The path to the build context, used by Kaniko - within the workspace
+      default: src
+    - name: imageUrl
+      description: Image name including repository
+    - name: imageTag
+      description: Image tag
+      default: "latest"
+    - name: kanikoExtraArgs
+      type: array
+    - name: script
+      description: kubectl command to run
+  tasks:
+    - name: getversion
+      taskRef:
+        name: get-dateversion
+    - name: fetch-repo
+      taskRef:
+        name: git-clone
+      workspaces:
+        - name: output
+          workspace: shared-data
+      params:
+        - name: url
+          value: "$(params.gitUrl)"
+        - name: revision
+          value: "$(params.gitRevision)"
+        - name: deleteExisting
+          value: "true"
+    - name: source-to-image
+      taskRef:
+        name: kaniko
+      runAfter:
+        - fetch-repo
+      workspaces:
+        - name: source
+          workspace: shared-data
+        - name: dockerconfig
+          workspace: docker-credentials
+      params:
+        - name: CONTEXT
+          value: $(params.pathToContext)
+        - name: IMAGE
+          value: $(params.imageUrl):$(tasks.getversion.results.datestring)
+        - name: EXTRA_ARGS
+          value:
+           - $(params.kanikoExtraArgs[*])
+    - name: runkubectl
+      taskRef:
+        name: kubernetes-actions
+      runAfter:
+        - source-to-image
+      workspaces:
+        - name: kubeconfig-dir
+          workspace: kubeconfig-dir
+      params:
+        - name: script
+          value: "$(params.script)=$(params.imageUrl):$(tasks.getversion.results.datestring)"

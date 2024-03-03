@@ -1,0 +1,36 @@
+apiVersion: tekton.dev/v1beta1
+kind: PipelineRun
+metadata:
+  generateName: xmagetoday-build-
+spec:
+  pipelineRef:
+    name: image-build-pipeline
+    namespace: pipelines
+  params:
+    - name: gitUrl
+      value: https://github.com/BrianRagazzi/homelab
+    - name: gitRevision
+      value: master
+    - name: pathToContext
+      value: images/xmagetoday
+    - name: imageUrl
+      value: harbor.lab.brianragazzi.com/library/xmagetoday #ragazzilab/docker-xmagebeta-alpine
+    - name: imageTag
+      value: "latest"
+    - name: kanikoExtraArgs
+      value:
+        - "--verbosity=debug"
+        - "--destination=harbor.lab.brianragazzi.com/library/hugo:latest"
+  serviceAccountName: pipeline
+  workspaces:
+    - name: shared-data
+      volumeClaimTemplate:
+        spec:
+          accessModes:
+          - ReadWriteOnce
+          resources:
+            requests:
+              storage: 1Gi
+    - name: docker-credentials
+      secret:
+        secretName: harbor

@@ -1,0 +1,42 @@
+apiVersion: tekton.dev/v1beta1
+kind: PipelineRun
+metadata:
+  #generateName: hugo-build-
+  generateName: xmage-build-reload-
+spec:
+  pipelineRef:
+    name: image-xmage-pipeline-reload
+    namespace: pipelines
+  params:
+    - name: gitUrl
+      value: https://github.com/BrianRagazzi/homelab
+    - name: gitRevision
+      value: master
+    - name: pathToContext
+      value: images/xmage-beta
+    - name: imageUrl
+      value: harbor.lab.brianragazzi.com/library/xmage #ragazzilab/docker-xmagebeta-alpine
+    - name: imageTag
+      value: "latest"
+    - name: script
+      value: "kubectl set image deployment/xmage -n xmage xmage"
+    - name: kanikoExtraArgs
+      value:
+        - "--verbosity=debug"
+        - "--destination=harbor.lab.brianragazzi.com/library/xmage:latest"
+  serviceAccountName: pipeline
+  workspaces:
+    - name: shared-data
+      volumeClaimTemplate:
+        spec:
+          accessModes:
+          - ReadWriteOnce
+          resources:
+            requests:
+              storage: 2Gi
+    - name: docker-credentials
+      secret:
+        secretName: harbor
+    - name: kubeconfig-dir
+      configMap:
+         name: xmage-kubeconfig
