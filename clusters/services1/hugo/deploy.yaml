@@ -17,7 +17,7 @@ spec:
     spec:
       securityContext:
         runAsNonRoot: true
-        runAsUser: 1000
+        #runAsUser: 1000
       containers:
       - name: hugo-lablinks
         image:  harbor.lab.brianragazzi.com/library/lablinks:latest
