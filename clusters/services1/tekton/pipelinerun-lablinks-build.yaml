@@ -3,10 +3,13 @@ kind: PipelineRun
 metadata:
   #generateName: hugo-build-
   generateName: lablinks-build
-  namespace: pipelines  
+  namespace: pipelines
 spec:
   pipelineRef:
     name: image-build-pipeline
+  podTemplate:
+    securityContext:
+      fsGroup: 65532
   params:
     - name: gitUrl
       value: https://github.com/BrianRagazzi/homelab
@@ -21,8 +24,6 @@ spec:
     - name: kanikoExtraArgs
       value:
         - "--verbosity=debug"
-        # - "--build-arg=HUGO_VERSION=0.101.0"
-        # - "--destination=harbor.lab.brianragazzi.com/library/hugo-test:0.101.0"
   serviceAccountName: pipeline
   workspaces:
     - name: shared-data
