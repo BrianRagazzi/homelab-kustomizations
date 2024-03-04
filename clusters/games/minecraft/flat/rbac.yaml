@@ -28,7 +28,7 @@ metadata:
 subjects:
 - kind: ServiceAccount
   name: default
-  namespace: minecraft
+  namespace: mc-flat
 roleRef:
   kind: Role
   name: jobrunner

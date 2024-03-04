@@ -28,7 +28,7 @@ metadata:
 subjects:
 - kind: ServiceAccount
   name: default
-  namespace: minecraft
+  namespace: mc-survive1
 roleRef:
   kind: Role
   name: jobrunner
