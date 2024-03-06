@@ -22,7 +22,7 @@ spec:
             - configMapRef:
                 name: backup-config-survive2
           image: harbor.lab.brianragazzi.com/cache/itzg/mc-backup
-          imagePullPolicy: Always
+          imagePullPolicy: IfNotPresent
           resources: {}
           command:
           - /bin/bash
@@ -60,7 +60,7 @@ spec:
             - configMapRef:
                 name: survive2-server-config
           image: harbor.lab.brianragazzi.com/cache/itzg/minecraft-server:latest
-          imagePullPolicy: Always
+          imagePullPolicy: IfNotPresent
           livenessProbe:
             exec:
               command:
@@ -102,7 +102,7 @@ spec:
             - configMapRef:
                 name: backup-config-survive2
           image: harbor.lab.brianragazzi.com/cache/itzg/mc-backup
-          imagePullPolicy: Always
+          imagePullPolicy: IfNotPresent
           resources: {}
           terminationMessagePath: /dev/termination-log
           terminationMessagePolicy: File
