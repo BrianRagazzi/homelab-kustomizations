@@ -15,6 +15,7 @@ spec:
     metadata:
       labels:
         run: survive1
+        type: minecraft
     spec:
       initContainers:
         - name: restore

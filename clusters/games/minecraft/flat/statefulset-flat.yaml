@@ -15,6 +15,7 @@ spec:
     metadata:
       labels:
         run: flat
+        type: minecraft
     spec:
       initContainers:
         - name: restore
