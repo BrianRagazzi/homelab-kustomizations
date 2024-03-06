@@ -13,6 +13,8 @@ spec:
       run: survive2
   template:
     metadata:
+      annotations:
+        backup.velero.io/backup-volumes-excludes: mc-backups,plugins
       labels:
         run: survive2
         type: minecraft
