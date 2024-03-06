@@ -13,6 +13,8 @@ spec:
       run: flat
   template:
     metadata:
+      annotations:
+        backup.velero.io/backup-volumes-excludes: mc-backups,plugins
       labels:
         run: flat
         type: minecraft
