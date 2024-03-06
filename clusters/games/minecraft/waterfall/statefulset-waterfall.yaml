@@ -12,6 +12,8 @@ spec:
       run: waterfall
   template:
     metadata:
+      annotations:
+        backup.velero.io/backup-volumes-excludes: plugins     
       labels:
         run: waterfall
     spec:
