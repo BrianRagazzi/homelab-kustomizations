@@ -20,5 +20,5 @@ spec:
             command:
             - /bin/sh
             - -c
-            - kubectl exec -n mc-survive1 survive1-0 -c server -- rcon-cli "stop"
+            - echo "hello, I'd like to run 'kubectl exec -n mc-survive1 survive1-0 -c server -- rcon-cli "stop"''
           restartPolicy: Never #OnFailure
