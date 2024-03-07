@@ -13,7 +13,7 @@ spec:
       template:
         spec:
           serviceAccountName: default
-          automount_service_account_token: true
+          automountServiceAccountToken: true
           containers:
           - name: stop
             image: harbor.lab.brianragazzi.com/cache/bitnami/kubectl:latest
