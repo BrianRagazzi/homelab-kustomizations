@@ -9,18 +9,14 @@ rules:
   resources:
   - deployments
   - statefulsets
-  - secrets
-  - configmaps
   - pods
   - job
   verbs:
-  - 'patch'
   - 'exec'
   - 'get'
   - 'list'
-  - 'watch'
   - 'create'
-  - 'update'
+
 
 
 ---
