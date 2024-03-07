@@ -12,7 +12,7 @@ spec:
       activeDeadlineSeconds: 30
       template:
         spec:
-          serviceAccountName: jobrunner
+          serviceAccountName: default
           automountServiceAccountToken: true
           containers:
           - name: stop
