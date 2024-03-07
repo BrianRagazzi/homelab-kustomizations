@@ -36,4 +36,4 @@ subjects:
 roleRef:
   kind: Role
   name: jobrunner
-  apiGroup: ""
+  apiGroup: rbac.authorization.k8s.io
