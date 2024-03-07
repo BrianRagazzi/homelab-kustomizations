@@ -9,15 +9,13 @@ rules:
   resources:
   - deployments
   - statefulsets
-  - secrets
-  - configmaps
   - pods
+  - pods/exec
+  - job
   verbs:
-  - 'patch'
   - 'exec'
   - 'get'
   - 'list'
-  - 'watch'
   - 'create'
 
 ---
@@ -33,4 +31,4 @@ subjects:
 roleRef:
   kind: Role
   name: jobrunner
-  apiGroup: ""
+  apiGroup: rbac.authorization.k8s.io
