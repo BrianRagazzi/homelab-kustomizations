@@ -5,13 +5,14 @@ metadata:
   namespace: mc-survive1
   name: jobrunner
 rules:
-- apiGroups: [""]
+- apiGroups: ["extensions", "apps", ""]
   resources:
   - deployments
   - statefulsets
   - secrets
   - configmaps
   - pods
+  - job
   verbs:
   - 'patch'
   - 'exec'
@@ -19,6 +20,8 @@ rules:
   - 'list'
   - 'watch'
   - 'create'
+  - 'update'
+
 
 ---
 kind: RoleBinding
