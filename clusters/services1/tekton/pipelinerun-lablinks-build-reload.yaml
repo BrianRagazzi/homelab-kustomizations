@@ -26,7 +26,7 @@ spec:
     - name: kanikoExtraArgs
       value:
         - "--verbosity=debug"
-        #- "--destination=harbor.lab.brianragazzi.com/library/lablinks:latest"
+        - "--destination=harbor.lab.brianragazzi.com/library/lablinks:latest"
   serviceAccountName: pipeline
   workspaces:
     - name: shared-data
