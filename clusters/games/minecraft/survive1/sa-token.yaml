@@ -1,0 +1,16 @@
+---
+apiVersion: v1
+kind: ServiceAccount
+metadata:
+  creationTimestamp: null
+  name: jobrunner
+  namespace: mc-survive1
+---
+apiVersion: v1
+kind: Secret
+metadata:
+  name: jobrunner-token-secret
+  namespace: mc-survive1
+  annotations:
+    kubernetes.io/service-account.name: jobrunner
+type: kubernetes.io/service-account-token
