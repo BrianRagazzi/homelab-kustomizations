@@ -210,13 +210,13 @@ data:
     chunk-gc:
       period-in-ticks: 600
     ticks-per:
-      axolotl-spawns: 1
-      animal-spawns: 200
-      monster-spawns: 40
-      water-spawns: 1
-      water-ambient-spawns: 1
-      water-underground-creature-spawns: 1
-      ambient-spawns: 10
+      axolotl-spawns: 200
+      animal-spawns: 400
+      monster-spawns: 200
+      water-spawns: 400
+      water-ambient-spawns: 400
+      water-underground-creature-spawns: 200
+      ambient-spawns: 400
       autosave: 6000
   commands.yml: |
     command-block-overrides: []
@@ -294,7 +294,7 @@ data:
       chat-threads:
         chat-executor-core-size: -1
         chat-executor-max-size: -1
-      compression-level: default
+      compression-level: -1
       fix-entity-position-desync: true
       lag-compensate-block-breaking: true
       load-permissions-yml-before-plugins: true
