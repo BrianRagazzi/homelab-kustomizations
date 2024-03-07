@@ -22,4 +22,4 @@ kubectl -n tekton-pipelines create secret tls wildcard-cert \
   --key=./brianragazzi-wildcard.key
 
 
-kubectl create -n hugo secret tls wildcard-cert --cert=./full.crt --key=./brianragazzi-wildcard.key --dry-run=client -o yaml >cert-sept04-2023.yaml
+kubectl create -n hugo secret tls wildcard-cert --cert=./full.crt --key=./brianragazzi-wildcard.key --dry-run=client -o yaml >cert-may22-2024.yaml
