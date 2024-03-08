@@ -36,3 +36,10 @@ Create kubeconfig from SA token, store in configmap
 ```
 ./generate-hugo-kubeconfig.sh
 ```
+
+
+
+## Get logs for Pipeline
+```
+tkn pipelinerun logs -n pipelines --last
+```
