@@ -1,0 +1,15 @@
+apiVersion: source.toolkit.fluxcd.io/v1beta2
+kind: HelmRepository
+metadata:
+  finalizers:
+    - finalizers.fluxcd.io
+  generation: 1
+  labels:
+    tmc.cloud.vmware.com/managed-helm-repository-name: bitnami
+  name: bitnami
+  namespace: tanzu-helm-resources
+spec:
+  interval: 10m0s
+  provider: generic
+  timeout: 60s
+  url: https://charts.bitnami.com/bitnami

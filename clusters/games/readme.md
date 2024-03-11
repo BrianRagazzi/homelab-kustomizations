@@ -4,6 +4,7 @@
 * Cert-manager
 * Contour
 * prometheus
+* Helm-Service
 
 
 ## kustomizations
@@ -16,3 +17,6 @@
 | mc-survive2 | Minecraft Server    | ./clusters/games/minecraft/survive2  | mc-survive2 | false |
 | waterfall   | Minecraft proxy     | ./clusters/games/minecraft/waterfall | waterfall   | false |
 | xmage       | XMage Server        | ./clusters/games/xmage/              | xmage       | true  |
+
+
+## Helm
