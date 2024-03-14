@@ -73,5 +73,4 @@ spec:
           workspace: kubeconfig-dir
       params:
         - name: script
-          value: ""
-          #"$(params.script)=$(params.imageUrl):$(tasks.getversion.results.datestring)"
+          value: "$(params.script)=$(params.imageUrl):$(tasks.getversion.results.datestring)"
