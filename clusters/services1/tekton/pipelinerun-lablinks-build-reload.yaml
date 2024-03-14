@@ -21,8 +21,9 @@ spec:
     - name: imageTag
       value: "latest"
     - name: script
-      value: "kubectl set image deployment/hugo-lablinks -n hugo hugo-lablinks"
-           # =$(params.imageUrl):$(tasks.getversion.results.datestring)
+      value: |
+        kubectl set image deployment/hugo-lablinks -n hugo hugo-lablinks=|
+        "$(params.imageUrl):$(tasks.getversion.results.datestring)"
     - name: kanikoExtraArgs
       value:
         - "--verbosity=debug"
