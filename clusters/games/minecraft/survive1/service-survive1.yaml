@@ -20,6 +20,10 @@ spec:
       port: 8123
       protocol: TCP
       targetPort: 8123
+    - name: bluemap
+      port: 8100
+      protocol: TCP
+      targetPort: 8100
   selector:
     run: survive1
   type: ClusterIP

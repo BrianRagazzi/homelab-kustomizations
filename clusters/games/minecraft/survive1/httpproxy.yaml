@@ -15,4 +15,4 @@ spec:
         replacement: /
     services:
     - name: survive1
-      port: 8123
+      port: 8100 #8123
