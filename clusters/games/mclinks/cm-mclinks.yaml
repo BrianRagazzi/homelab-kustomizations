@@ -19,7 +19,7 @@ data:
     </thead>
     <tbody>
     <tr><td>Survive 1(default)</td><td>Survival1</td><td><a href="./survive1/">map</a></td></tr>
-    <tr><td>Survive 2(strictly survival))</td><td>Survival2</td><td><a href="./survive2/">map</a></td></tr>
+    <tr><td>Survive 2(strictly survival)</td><td>Survival2</td><td><a href="./survive2/">map</a></td></tr>
     <tr><td>Flat (creative)</td><td>Creative</td><td><a href="./flat/">map</a></td></tr>
     <!--<tr><td>Creative</td><td>Creative</td><td><a href="./creativecmd/">cloudcmd</a></td><td><a href="./creative/">map</a></td></tr>-->
     <!--<tr><td>Test</td><td>Creative</td><td>origin, etc.</td><td><a href="./test/">map</a></td></tr>-->
