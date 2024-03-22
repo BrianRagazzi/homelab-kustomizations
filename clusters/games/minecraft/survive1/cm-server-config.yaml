@@ -55,3 +55,4 @@ data:
   SYNC_CHUNK_WRITES: "false"
   NETWORK_COMPRESSION_THRESHOLD: "-1" #Disable Compression behind proxy
   SIMULATION_DISTANCE: "10"
+  ALLOW_FLIGHT: "true"
