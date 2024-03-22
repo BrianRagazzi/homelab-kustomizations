@@ -16,3 +16,12 @@ spec:
     services:
     - name: survive2
       port: 8123
+  # - conditions:
+  #   - prefix: /s2metrics
+  #   pathRewritePolicy:
+  #     replacePrefix:
+  #     - prefix: /s2metrics
+  #       replacement: /
+  #   services:
+  #   - name: survive2
+  #     port: 9940
