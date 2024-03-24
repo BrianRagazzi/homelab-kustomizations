@@ -80,6 +80,8 @@ spec:
               protocol: TCP
             - containerPort: 25575
               protocol: TCP
+            - containerPort: 8100
+              protocol: TCP
           resources:
             requests:
               memory: "13Gi"
