@@ -14,7 +14,7 @@ spec:
   template:
     metadata:
       annotations:
-        backup.velero.io/backup-volumes-excludes: mc-backups,plugins     
+        backup.velero.io/backup-volumes-excludes: mc-backups,plugins
       labels:
         run: survive1
         type: minecraft
@@ -83,7 +83,7 @@ spec:
           resources:
             requests:
               memory: "13Gi"
-              cpu: "500m"
+              cpu: "1" #"500m"
             limits:
               memory: "13Gi"
               cpu: "2"
