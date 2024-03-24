@@ -68,7 +68,7 @@ data:
     world-settings:
       default:
         below-zero-generation-in-existing-chunks: true
-        view-distance: 48
+        view-distance: 12
         simulation-distance: default
         thunder-chance: 100000
         merge-radius:
@@ -111,7 +111,7 @@ data:
           tick-inactive-villagers: true
           ignore-spectators: false
         entity-tracking-range:
-          players: 48
+          players: 80
           animals: 48
           monsters: 48
           misc: 32
@@ -200,23 +200,23 @@ data:
       shutdown-message: Server closed
       minimum-api: none
     spawn-limits:
-      axolotls: 10
-      monsters: 200
-      animals: 100
-      water-animals: 10
+      axolotls: 5
+      monsters: 70
+      animals: 10
+      water-animals: 5
       water-ambient: 20
       water-underground-creature: 5
-      ambient: 25
+      ambient: 15
     chunk-gc:
       period-in-ticks: 600
     ticks-per:
-      axolotl-spawns: 200
-      animal-spawns: 400
-      monster-spawns: 200
-      water-spawns: 400
-      water-ambient-spawns: 400
-      water-underground-creature-spawns: 200
-      ambient-spawns: 400
+      axolotl-spawns: 400
+      animal-spawns: 1
+      monster-spawns: 2
+      water-spawns: 1
+      water-ambient-spawns: 1
+      water-underground-creature-spawns: 1
+      ambient-spawns: 1
       autosave: 6000
   commands.yml: |
     command-block-overrides: []
