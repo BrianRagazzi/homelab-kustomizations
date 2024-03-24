@@ -17,3 +17,5 @@ spec:
       port: 8123
     - protocol: TCP
       port: 9940
+    - protocol: TCP
+      port: 8100

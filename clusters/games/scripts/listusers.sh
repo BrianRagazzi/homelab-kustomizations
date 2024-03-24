@@ -3,7 +3,7 @@
 # set -x
 
 function checkUsers {
-  echo -n "$(kubectl exec -n mc-$1 -c server $1-0 -- rcon-cli list  | tr -s '\n\r' | cut -d ' ' -f 3 | sed -e 's/\x1b\[[0-9;]*m//g')"
+  echo -n "$(kubectl exec -n mc-$1 -c server $1-0 -- rcon-cli list  | head -n 1 | tr -s '\n\r' | cut -d ' ' -f 3 | sed -e 's/\x1b\[[0-9;]*m//g')"
 }
 
 s1=$(checkUsers survive1)
