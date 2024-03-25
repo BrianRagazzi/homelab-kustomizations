@@ -42,6 +42,12 @@ scrape_configs:
     comp: ['jobservice']
   static_configs:
   - targets: ['harbor.lab.brianragazzi.com:9090']
+- job_name: mysql
+  scrape_interval: 30s
+  static_configs:
+  - targets: ['mysql.ragazzilab.com:9104']
+    labels:
+      alias: mysql
 
 - job_name: 'kubernetes-pods'
   kubernetes_sd_configs:
