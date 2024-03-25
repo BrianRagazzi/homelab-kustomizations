@@ -85,10 +85,10 @@ spec:
           resources:
             requests:
               memory: "13Gi"
-              cpu: "1" #"500m"
+              cpu: "500m"
             limits:
               memory: "13Gi"
-              cpu: "2"
+              cpu: "3"
           stdin: true
           terminationMessagePath: /dev/termination-log
           terminationMessagePolicy: File
