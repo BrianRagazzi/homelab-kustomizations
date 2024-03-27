@@ -82,10 +82,10 @@ spec:
               protocol: TCP
           resources:
             requests:
-              memory: "13Gi"
+              memory: "11Gi"
               cpu: "500m"
             limits:
-              memory: "13Gi"
+              memory: "11Gi"
               cpu: "3"
           stdin: true
           terminationMessagePath: /dev/termination-log

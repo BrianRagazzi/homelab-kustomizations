@@ -24,7 +24,7 @@ data:
   MAX_PLAYERS: "25"
   MAX_TICK_TIME: "-1"
   MAX_WORLD_SIZE: "20000"
-  MEMORY: 12G
+  MEMORY: 10G
   MODE: survival
   MOTD: survive2
   ONLINE_MODE: "false"
