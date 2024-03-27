@@ -84,11 +84,11 @@ spec:
               protocol: TCP
           resources:
             requests:
-              memory: "4Gi"
+              memory: "3Gi"
               cpu: "0.2"
             limits:
               memory: "6Gi"
-              cpu: "2"
+              cpu: "1"
           stdin: true
           terminationMessagePath: /dev/termination-log
           terminationMessagePolicy: File
