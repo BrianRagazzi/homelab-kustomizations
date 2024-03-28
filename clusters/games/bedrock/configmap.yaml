@@ -1,0 +1,36 @@
+---
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: bedrock-config
+  namespace: bedrock
+  labels:
+    role: service-config
+    app: bedrock
+data:
+  # Find more options at https://github.com/itzg/docker-minecraft-bedrock-server#server-properties
+  # Remove # from in front of line if changing from default values.
+  EULA: "TRUE" # Must accept EULA to use this minecraft server
+  GAMEMODE: "survival" # Options: survival, creative, adventure
+  DIFFICULTY: "easy" # Options: peaceful, easy, normal, hard
+  VERSION: LATEST
+  DEFAULT_PLAYER_PERMISSION_LEVEL: "member" # Options: visitor, member, operator
+  LEVEL_NAME: "bedrock" #"my_minecraft_world"
+  #LEVEL_SEED: "33480944"
+  SERVER_NAME: "my_minecraft_server"
+  SERVER_PORT: "19132"
+  LEVEL_TYPE: "DEFAULT" # Options: FLAT, LEGACY, DEFAULT
+  ALLOW_CHEATS: "false" # Options: true, false
+  MAX_PLAYERS: "10"
+  PLAYER_IDLE_TIMEOUT: "30"
+  TEXTUREPACK_REQUIRED: "false" # Options: true, false
+  #
+  ## Changing these will have a security impact
+  ONLINE_MODE: "true" # Options: true, false (removes Xbox Live account requirements)
+  ALLOW_LIST: "false" # If enabled, need to provide a whitelist.json by your own means.
+  # ALLOW_LIST: "b_ragazzi@hotmail.com"
+  ## Changing these will have a performance impact
+  VIEW_DISTANCE: "12"
+  TICK_DISTANCE: "4"
+  MAX_THREADS: "8"
+  OPS: "2533274937045944"

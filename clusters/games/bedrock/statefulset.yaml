@@ -1,0 +1,78 @@
+---
+apiVersion: apps/v1
+kind: StatefultSet
+metadata:
+  namespace: bedrock
+  labels:
+    run: bedrock
+  name: bedrock
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      run: bedrock
+  strategy:
+    rollingUpdate:
+      maxSurge: 25%
+      maxUnavailable: 25%
+    type: RollingUpdate
+  template:
+    metadata:
+      annotations:
+        backup.velero.io/backup-volumes: vol-tanzu-bedrock
+      labels:
+        run: bedrock
+    spec:
+      containers:
+      - envFrom:
+        - configMapRef:
+            name: bedrock-config
+        image: itzg/minecraft-bedrock-server:latest
+        imagePullPolicy: IfNotPresent
+        livenessProbe:
+          exec:
+            command:
+              - mc-monitor
+              - status-bedrock
+              - --host
+              # force health check against IPv4 port
+              - 127.0.0.1
+          failureThreshold: 3
+          initialDelaySeconds: 30
+          periodSeconds: 5
+          successThreshold: 1
+          timeoutSeconds: 1
+        name: server
+        ports:
+        - containerPort: 19132
+          name: main
+          protocol: UDP
+        readinessProbe:
+          exec:
+            command:
+              - mc-monitor
+              - status-bedrock
+              - --host
+              # force health check against IPv4 port
+              - 127.0.0.1
+          failureThreshold: 3
+          initialDelaySeconds: 30
+        resources:
+          requests:
+            memory: "1Gi"
+            cpu: "0.2"
+          limits:
+            memory: "6Gi"
+            cpu: "2"
+        volumeMounts:
+        - mountPath: /data
+          name: server-data
+      dnsPolicy: ClusterFirst
+      restartPolicy: Always
+      schedulerName: default-scheduler
+      securityContext: {}
+      terminationGracePeriodSeconds: 30
+      volumes:
+      - name: server-data
+        persistentVolumeClaim:
+          claimName: pvc-bedrock-data
